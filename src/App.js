@@ -44,13 +44,14 @@ function App() {
   const correctWords = (data) => {
         const answer = Object.keys(data)
           .filter((key) => key.startsWith(localStorage.getItem('daily-start')) && key.endsWith(localStorage.getItem('daily-end')))
-          .reduce((obj, key)  => {
+          /*.reduce((obj, key)  => {
             return Object.assign(obj, {
               [key]: false
-            });
-      }, {});
+            }); 
+            return 
+      }, {}); */
       localStorage.setItem('daily-answers', JSON.stringify(answer));
-      localStorage.setItem('daily-found', "0/" + Object.keys(answer).length);
+      localStorage.setItem('daily-found', JSON.stringify([]));
   }
 
 

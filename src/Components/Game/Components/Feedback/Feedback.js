@@ -11,7 +11,7 @@ const Feedback = (props) => {
 		setOpen(false);
 	}
 	return(
-		<Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+		<Snackbar open={open} autoHideDuration={5000}>
 			<Alert severity={props.severity}>
 				<AlertTitle>{props.title}</AlertTitle>
 				{props.message}

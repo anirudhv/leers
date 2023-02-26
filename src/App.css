@@ -2,4 +2,7 @@
   margin:0;
   height:100vh;
   background: radial-gradient(#dfb9fa, #b9f3fa);
+  display:flex;
+  flex-direction: row;
+  justify-content:center;
 }

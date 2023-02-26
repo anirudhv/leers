@@ -5,7 +5,6 @@ const EnterButton = (props) => {
 	return(
 		<Button
 			id="enter_button"
-			onClick={props.onClick}
     		color="primary"
     		size="lg">
     		Enter

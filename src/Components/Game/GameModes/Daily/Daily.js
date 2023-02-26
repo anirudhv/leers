@@ -9,44 +9,38 @@ import styles from './Daily.module.css';
 import { pick } from 'lodash';
 
 const Daily = (props) => {
-	const[answers, setAnswers] = useState(JSON.parse(localStorage.getItem('daily-answers')));
-	let wordsFound = null;
-	const[feedback, setFeedback] = useState("none");
-	const onClick = (event) => {
+	const answers = JSON.parse(localStorage.getItem('daily-answers'));
+
+	const[found, setFound] = useState(JSON.parse(localStorage.getItem('daily-found')));
+	const onEnter = (event) => {
 		const userVal = document.getElementById('wordbox').value;
-		const temp = answers;
-		if(Object.keys(temp).includes(userVal)) {
-			console.log("Good")
-			temp[userVal] = true;
-			console.log(temp[userVal]);
-			setFeedback("good");
-			const numFound = pick(temp, (ans) => {
-				return ans === true;
-			});
-			console.log(numFound);
+		console.log("word is " + userVal);
+		if(answers.includes(userVal.toLowerCase()) && !found.includes(userVal.toLowerCase())) {
+			setFound([...found, userVal]);
+
 		} else {
-			console.log("Bad")
-			setFeedback("Bad");
 		}
 	}
 
 	useEffect(() => {
-		localStorage.setItem('daily-answers', JSON.stringify(answers));
-	}, [answers]);
+		localStorage.setItem('daily-found', JSON.stringify(found));
+		document.getElementById('wordbox').value = "";
+	}, [found]);
 	return(
 		<div id={styles.daily}>
 			<Header 
 				start={localStorage.getItem('daily-start')}
 				end={localStorage.getItem('daily-end')}
-				found={answers} />
+				found={found.length + "/" + answers.length} />
 			<Textbox
 				start={localStorage.getItem('daily-start')}
-				end={localStorage.getItem('daily-end')} />
+				end={localStorage.getItem('daily-end')}
+				onEnter={onEnter} />
 			<div>
-				<EnterButton onClick={onClick} />
 				<GiveUpButton />
 			</div>
-			<WordList list={wordsFound} />
+			<WordList list={found} />
+
 		</div>
 	);
 }
