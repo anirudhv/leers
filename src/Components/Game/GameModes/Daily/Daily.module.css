@@ -4,3 +4,19 @@
 	flex-direction: column;
 	margin:5%;
 }
+
+#finished {
+	text-align: center;
+	color:#00ff00;
+}
+
+#failed {
+	text-align:center;
+	color:#ff0000;
+}
+
+#game {
+	display:flex;
+	justify-content:center;
+	flex-direction: column;
+}

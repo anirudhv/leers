@@ -4,17 +4,17 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
 const Feedback = (props) => {
-	const[open, setOpen] = useState(false);
+	const[open, setOpen] = useState(props.open);
 	const handleClose = (event, reason) => {
+		console.log("In here")
 		if(reason === 'clickaway')
 			return;
-		setOpen(false);
+		setOpen(false)
 	}
 	return(
-		<Snackbar open={open} autoHideDuration={5000}>
+		<Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
 			<Alert severity={props.severity}>
 				<AlertTitle>{props.title}</AlertTitle>
-				{props.message}
 			</Alert>
 		</Snackbar>
 	);

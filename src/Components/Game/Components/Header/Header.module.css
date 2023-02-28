@@ -12,10 +12,11 @@
 
 #logo {
 	object-fit:contain;
+	cursor:pointer;
 }
 
 .lettercolor {
-	color:#ff0000;
+	color:#8B4000;
 	display:inline;
 }
 

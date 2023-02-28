@@ -32,6 +32,7 @@ function App() {
         const todaysEnd = todaysData['end'];
         localStorage.setItem('daily-start', todaysStart);
         localStorage.setItem('daily-end', todaysEnd);
+        localStorage.setItem('daily-given-up', 'no');
       });
 
     fetch('https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json')
@@ -43,13 +44,7 @@ function App() {
 
   const correctWords = (data) => {
         const answer = Object.keys(data)
-          .filter((key) => key.startsWith(localStorage.getItem('daily-start')) && key.endsWith(localStorage.getItem('daily-end')))
-          /*.reduce((obj, key)  => {
-            return Object.assign(obj, {
-              [key]: false
-            }); 
-            return 
-      }, {}); */
+          .filter((key) => key.startsWith(localStorage.getItem('daily-start')) && key.endsWith(localStorage.getItem('daily-end')));
       localStorage.setItem('daily-answers', JSON.stringify(answer));
       localStorage.setItem('daily-found', JSON.stringify([]));
   }

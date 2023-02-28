@@ -11,6 +11,13 @@ const WordList = (props) => {
 					{word}
 				</Badge>
 				))}
+			{props.showError && (props.error.map((error, i) => (
+				<Badge color="danger"
+				key={i}
+				pill>
+				{error}
+				</Badge>
+				)))}
 		</div>
 	);
 }

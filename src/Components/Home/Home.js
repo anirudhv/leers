@@ -6,6 +6,7 @@ function Home() {
   return (
     <div id={styles.home}>
     	<img src="LeersLogo.png" alt="logo" />
+      <br />
     	<GameMode className="mode" name = "daily" color="#47ff6f" mode="daily" />
     	<GameMode className="mode" name = "unlimited - normal" color="#ff002f" mode="unlimited - normal" />
     	<GameMode className="mode" name = "unlimited - time trial" color="#bd8ced" mode="unlimited - time trial" />
