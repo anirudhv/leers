@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Textbox from '../../Components/Textbox/Textbox';
-import Feedback from '../../Components/Feedback/Feedback';
 import WordList from '../../Components/WordList/WordList';
 import Header from '../../Components/Header/Header';
 import GiveUpButton from '../../Components/GiveUpButton/GiveUpButton';
 import styles from './Daily.module.css';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 
 const Daily = (props) => {
 	const answers = JSON.parse(localStorage.getItem('daily-answers'));

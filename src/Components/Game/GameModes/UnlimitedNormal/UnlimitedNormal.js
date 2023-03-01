@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Spinner } from 'reactstrap';
 import styles from './UnlimitedNormal.module.css';
 import Textbox from '../../Components/Textbox/Textbox';
-import Feedback from '../../Components/Feedback/Feedback';
 import WordList from '../../Components/WordList/WordList';
 import Header from '../../Components/Header/Header';
 import NewGameButton from '../../Components/NewGameButton/NewGameButton';
 import GiveUpButton from '../../Components/GiveUpButton/GiveUpButton';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import { UnlimitedNormalSetup } from '../../../../Functions/UnlimitedSetup.js';
 
 const UnlimitedNormal = (props) => {

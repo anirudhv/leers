@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import Home from './Components/Home/Home';
 import { Routes, Route } from 'react-router-dom';
@@ -7,19 +7,9 @@ import Multiplayer from './Components/Game/GameModes/Multiplayer/Multiplayer';
 import UnlimitedNormal from './Components/Game/GameModes/UnlimitedNormal/UnlimitedNormal';
 import UnlimitedTimeTrial from './Components/Game/GameModes/UnlimitedTimeTrial/UnlimitedTimeTrial';
 import Rules from './Components/Rules/Rules';
-import { filter, reduce } from 'lodash';
 import { UnlimitedNormalSetup } from './Functions/UnlimitedSetup.js';
 
 function App() {
-  const randomGenerator = () => {
-    let info = null;
-    fetch("https://agreeable-jade-swordfish.cyclic.app/generateOne")
-      .then((res) => res.json())
-      .then((data) => {
-        info = data;
-      });
-      return info;
-  }
 
   const today = new Date();
   const date = today.toISOString().substring(0, 10);
