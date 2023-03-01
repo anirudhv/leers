@@ -8,3 +8,12 @@
   justify-content: center;
   -webkit-align-items: center;
 }
+
+#rules:hover {
+  opacity:0.5;
+  cursor:pointer;
+}
+
+#logo:hover {
+  opacity:0.5;
+}

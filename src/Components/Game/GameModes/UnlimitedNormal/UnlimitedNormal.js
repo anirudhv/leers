@@ -5,51 +5,21 @@ import Textbox from '../../Components/Textbox/Textbox';
 import Feedback from '../../Components/Feedback/Feedback';
 import WordList from '../../Components/WordList/WordList';
 import Header from '../../Components/Header/Header';
-import EnterButton from '../../Components/EnterButton/EnterButton';
+import NewGameButton from '../../Components/NewGameButton/NewGameButton';
 import GiveUpButton from '../../Components/GiveUpButton/GiveUpButton';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import { UnlimitedNormalSetup } from '../../../../Functions/UnlimitedSetup.js';
 
 const UnlimitedNormal = (props) => {
 	//https://www.pluralsight.com/blog/software-development/suspense-react-18-explained
-	const[data, setData] = useState([]);
+	const data = JSON.parse(localStorage.getItem('unlimited-answers'));
 	const[open, setOpen] = useState(false);
-    const[loading, setLoading] = useState(true);
     const[found, setFound] = useState(JSON.parse(localStorage.getItem('unlimited-found')));
-    console.log("found is " + found);
-    console.log("data is " + data)
-    const[notFound, setnotFound] = useState();
-
-    useEffect(() => {
-    	console.log("Inside")
-	    fetch("https://agreeable-jade-swordfish.cyclic.app/generateOne")
-	      .then((res) => res.json())
-	      .then((letters) => {
-	      	localStorage.setItem('unlimited-start', letters['start']);
-	      	localStorage.setItem('unlimited-end', letters['end']);
-	      	localStorage.setItem('unlimited-given-up', 'no');
-	    });
-	    fetch('https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json')
-	      .then((res) => res.json())
-	      .then((data) => {
-	      correctWords(data);
-	  });
-    }, []);
-
-	const correctWords = (data) => {
-		const answer = Object.keys(data)
-	          .filter((key) => key.startsWith(localStorage.getItem('unlimited-start')) && key.endsWith(localStorage.getItem('unlimited-end')));
-      console.log("data is " + answer);
-      localStorage.setItem('unlimited-answers', JSON.stringify(answer));
-      localStorage.setItem('unlimited-found', JSON.stringify([]));
-      setData(answer);
-      setLoading(false);
-	}
-
+    const[notFound, setnotFound] = useState(data.filter((word) => !found.includes(word)));
 	const onEnter = (event) => {
 		const userVal = document.getElementById('wordbox').value;
-		console.log("word is " + userVal);
 		if(data.includes(userVal.toLowerCase()) && !found.includes(userVal.toLowerCase())) {
 			setFound([...found, userVal]);
 			setOpen(true);
@@ -68,22 +38,20 @@ const UnlimitedNormal = (props) => {
 		setOpen(false);
 	}
 
-    if(loading) {
-    	return(
-    		<div id={styles.spinner}>
-			  <Spinner
-			    color="secondary"
-			    style={{
-			      height: '30rem',
-			      width: '30rem'
-			    }}
-			  />
-    		</div>
-    	);
-    }
+	const newGame = async (event) => {
+		localStorage.removeItem('unlimited-answers');
+		localStorage.removeItem('unlimited-found');
+		localStorage.removeItem('unlimited-given-up');
+		await UnlimitedNormalSetup();
+		setFound([]);
+	}
+
+	useEffect(() => {
+		localStorage.setItem('unlimited-found', JSON.stringify(found));
+	}, [found]);
 
 	return(
-		<div>
+		<div id={styles.unlimitednormal}>
 			<Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
 				<Alert severity="success" variant="filled" />
 			</Snackbar>
@@ -93,7 +61,7 @@ const UnlimitedNormal = (props) => {
 				found={found.length + "/" + data.length} />
 				<br />
 			{(localStorage.getItem('unlimited-given-up') === 'no' && found.length !== data.length) && (
-			<div id={styles.game}>
+			<div className={styles.game}>
 				<Textbox
 					onEnter={onEnter} />
 				<br />
@@ -106,6 +74,11 @@ const UnlimitedNormal = (props) => {
 			)}
 			{(localStorage.getItem('unlimited-given-up') === 'yes') && (
 				<h1 id={styles.failed}>Game Over!</h1>
+			)}
+			{(found.length === data.length || localStorage.getItem('unlimited-given-up') === 'yes') && (
+				<div className={styles.game}>
+					<NewGameButton onClick={newGame} />
+				</div>
 			)}
 			<WordList 
 			list={found}

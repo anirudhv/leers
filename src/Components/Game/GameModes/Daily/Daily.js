@@ -3,7 +3,6 @@ import Textbox from '../../Components/Textbox/Textbox';
 import Feedback from '../../Components/Feedback/Feedback';
 import WordList from '../../Components/WordList/WordList';
 import Header from '../../Components/Header/Header';
-import EnterButton from '../../Components/EnterButton/EnterButton';
 import GiveUpButton from '../../Components/GiveUpButton/GiveUpButton';
 import styles from './Daily.module.css';
 import Snackbar from '@mui/material/Snackbar';
@@ -14,10 +13,9 @@ const Daily = (props) => {
 	const answers = JSON.parse(localStorage.getItem('daily-answers'));
 	const[open, setOpen] = useState(false);
 	const[found, setFound] = useState(JSON.parse(localStorage.getItem('daily-found')));
-	const[notFound, setnotFound] = useState();
+	const[notFound, setnotFound] = useState(answers.filter((word) => !found.includes(word)));
 	const onEnter = (event) => {
 		const userVal = document.getElementById('wordbox').value;
-		console.log("word is " + userVal);
 		if(answers.includes(userVal.toLowerCase()) && !found.includes(userVal.toLowerCase())) {
 			setFound([...found, userVal]);
 			setOpen(true);
@@ -38,7 +36,6 @@ const Daily = (props) => {
 
 	useEffect(() => {
 		localStorage.setItem('daily-found', JSON.stringify(found));
-		console.log("found updated")
 	}, [found]);
 	return(
 		<div id={styles.daily}>

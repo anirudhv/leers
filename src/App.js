@@ -6,7 +6,9 @@ import Daily from './Components/Game/GameModes/Daily/Daily';
 import Multiplayer from './Components/Game/GameModes/Multiplayer/Multiplayer';
 import UnlimitedNormal from './Components/Game/GameModes/UnlimitedNormal/UnlimitedNormal';
 import UnlimitedTimeTrial from './Components/Game/GameModes/UnlimitedTimeTrial/UnlimitedTimeTrial';
+import Rules from './Components/Rules/Rules';
 import { filter, reduce } from 'lodash';
+import { UnlimitedNormalSetup } from './Functions/UnlimitedSetup.js';
 
 function App() {
   const randomGenerator = () => {
@@ -27,7 +29,6 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         const todaysData = data[date];
-        console.log(todaysData)
         const todaysStart = todaysData['start'];
         const todaysEnd = todaysData['end'];
         localStorage.setItem('daily-start', todaysStart);
@@ -49,6 +50,8 @@ function App() {
       localStorage.setItem('daily-found', JSON.stringify([]));
   }
 
+  UnlimitedNormalSetup();
+
 
   return (
   	<div className="App">
@@ -58,6 +61,7 @@ function App() {
         <Route path="/unlimited-normal" element={<UnlimitedNormal />}  />
         <Route path="/ulimited-timetrial" element={<UnlimitedTimeTrial />} />
         <Route path="/multiplayer" element={<Multiplayer />} />
+        <Route path="/rules" element={<Rules />} />
       </Routes>
   	</div>
   );

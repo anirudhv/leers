@@ -6,7 +6,6 @@ import AlertTitle from '@mui/material/AlertTitle';
 const Feedback = (props) => {
 	const[open, setOpen] = useState(props.open);
 	const handleClose = (event, reason) => {
-		console.log("In here")
 		if(reason === 'clickaway')
 			return;
 		setOpen(false)

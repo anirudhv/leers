@@ -15,6 +15,10 @@
 	cursor:pointer;
 }
 
+#logo:hover {
+  opacity:0.5;
+}
+
 .lettercolor {
 	color:#8B4000;
 	display:inline;

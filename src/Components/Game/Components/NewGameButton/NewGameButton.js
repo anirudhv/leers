@@ -1,15 +1,16 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 
-const EnterButton = (props) => {
+const NewGameButton = (props) => {
 	return(
 		<Button
 			id="enter_button"
     		color="primary"
+    		onClick={props.onClick}
     		size="lg">
-    		Enter
+    		New Game
     	</Button>
 	);
 }
 
-export default EnterButton;
+export default NewGameButton;
